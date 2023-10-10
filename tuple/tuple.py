@@ -25,17 +25,17 @@ class Tuple:
         return epsilonEquals(self.x, o.x) and epsilonEquals(self.y, o.y) and epsilonEquals(self.z, o.z) and epsilonEquals(self.w, o.w)
 
     # Adds two tuples. Can add vector to a point, vector to a vector, but not point to point (will give tuple that is neither vector nor point.
-    def plus(self, o):
+    def __add__(self, o):
         return Tuple(self.x + o.x, self.y + o.y, self.z + o.z, self.w + o.w)
     
     # Subtracts tuples. Point - point gets a vector pointing from one to the other, point - vector gets a point.
-    def minus(self, o):
+    def __sub__(self, o):
         return Tuple(self.x - o.x, self.y - o.y, self.z - o.z, self.w - o.w)
 
     # (-a) Subtracts self from the zero vector to negate a vector. Calling on a point returns nonsense.
     def __neg__(self):
         zero = Tuple(0, 0, 0, 0)
-        return zero.minus(self)
+        return zero - self
 
     # (a * x) vector times scalar/fraction.
     def __mul__(self, x):

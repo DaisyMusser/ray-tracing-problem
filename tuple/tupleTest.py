@@ -45,31 +45,31 @@ class TestTupleFeatures(unittest.TestCase):
     def test_tuple_add(self):
         a1 = Tuple(3, -2, 5, 1)
         a2 = Tuple(-2, 3, 1, 0)
-        self.assertTrue(a1.plus(a2).equals(Tuple(1, 1, 6, 1)), "Tuple addition broken.")
+        self.assertTrue((a1 + a2).equals(Tuple(1, 1, 6, 1)), "Tuple addition broken.")
 
     # Tests subtracting two points
     def test_point_minus_point(self):
         p1 = point(3, 2, 1)
         p2 = point(5, 6, 7)
-        self.assertTrue(p1.minus(p2).equals(vector(-2, -4, -6)), "point minus point broken")
+        self.assertTrue((p1 - p2).equals(vector(-2, -4, -6)), "point minus point broken")
 
     # Tests subtracting vector from point.
     def test_point_minus_vector(self):
         p = point(3, 2, 1)
         v = vector(5, 6, 7)
-        self.assertTrue(p.minus(v).equals(point(-2, -4, -6)), "Point minus vector broken.")
+        self.assertTrue((p - v).equals(point(-2, -4, -6)), "Point minus vector broken.")
 
     # Tests subtracting vector from vector. (change in direction between two vectors)
     def test_vector_minus_vector(self):
         v1 = vector(3, 2, 1)
         v2 = vector(5, 6, 7)
-        self.assertTrue(v1.minus(v2).equals(vector(-2, -4, -6)), "Vector minus Vector broken.")
+        self.assertTrue((v1 - v2).equals(vector(-2, -4, -6)), "Vector minus Vector broken.")
     
     # Tests zero vector minus another vector, or the negation of a vector.
     def test_negate_vector(self):
         zero = vector(0, 0, 0)
         v = vector(1, -2, 3)
-        self.assertTrue(zero.minus(v).equals(vector(-1, 2, -3)), "Negate vector broken")
+        self.assertTrue((zero - v).equals(vector(-1, 2, -3)), "Negate vector broken")
 
     # Test specific function for the above test.
     def test_negator(self):
