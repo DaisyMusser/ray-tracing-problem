@@ -1,7 +1,7 @@
 import unittest
 from color import *
 
-class TestCanvasFeatures(unittest.TestCase):
+class TestColorFeatures(unittest.TestCase):
     # Tests that colors are rgb tuples
     def test_colors(self):
         c = Color(-0.5, 0.4, 1.7)
@@ -35,4 +35,3 @@ class TestCanvasFeatures(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

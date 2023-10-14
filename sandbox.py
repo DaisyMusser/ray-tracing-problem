@@ -1,8 +1,4 @@
+from color import *
 
-class Test:
-    def __init__(self, a):
-        self.a = a
-
-t = Test(1)
-
-print(t.a)
+c = Color(0, 1, 800.3)
+print(c.toString())
