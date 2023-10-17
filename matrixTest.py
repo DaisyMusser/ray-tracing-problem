@@ -120,6 +120,41 @@ class TestMatrixFeatures(unittest.TestCase):
                     [-3, 2]])
         self.assertEqual(a.determinant(), 17)
 
+    def test_submatrix_of_3x3(self):
+        a = Matrix([[ 1, 5,  0],
+                    [-3, 2,  7],
+                    [ 0, 6, -3]])
+        b = a.submatrix(0, 2)
+        self.assertTrue(b.equals(Matrix([[-3, 2],
+                                         [ 0, 6]])))
+
+    def test_sub_4x4(self):
+        a = Matrix([[0, 9, 3, 0],
+                    [9, 8, 0, 8],
+                    [1, 8, 5, 3],
+                    [0, 0, 5, 8]])
+        b = a.submatrix(1, 3)
+        self.assertTrue(b.equals(Matrix([[0, 9, 3],
+                                         [1, 8, 5],
+                                         [0, 0, 5]])))
+
+    def test_minor_3x3(self):
+        a = Matrix([[3,  5,  0],
+                    [2, -1, -7],
+                    [6, -1,  5]])
+        b = a.submatrix(1, 0)
+        self.assertEqual(b.determinant(), 25)
+        self.assertEqual(a.minor(1, 0), 25)
+
+    def test_cofactor_3x3(self):
+        a = Matrix([[3,  5,  0],
+                    [2, -1, -7],
+                    [6, -1,  5]])
+        self.assertEqual(a.minor(0, 0), -12)
+        self.assertEqual(a.cofactor(0, 0), -12)
+        self.assertEqual(a.minor(1, 0), 25)
+        self.assertEqual(a.cofactor(1, 0), -25)
+
 
 if __name__ == "__main__":
     unittest.main()

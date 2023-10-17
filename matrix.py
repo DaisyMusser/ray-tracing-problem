@@ -1,4 +1,5 @@
 from tuple import *
+import copy
 
 class Matrix:
     def __init__(self, data):
@@ -45,5 +46,28 @@ class Matrix:
     def determinant(self):
         d = self.data
         return d[0][0] * d[1][1] - d[0][1] * d[1][0]
+
+    def submatrix(self, row, col):
+        # not a deep copy!!
+        sub = copy.deepcopy(self.data)
+        # remove row
+        sub.pop(row)
+        for sub_row in sub:
+            sub_row.pop(col)
+        return Matrix(sub)
+
+    # Shortcut for the determinant of the submatrix at row, col
+    def minor(self, row, col):
+        sub = self.submatrix(row, col)
+        return sub.determinant()
+
+    def cofactor(self, row, col):
+        minor = self.minor(row, col)
+        if (row + col) % 2 == 0:
+            return minor
+        else:
+            return -minor
+
+
 
 
