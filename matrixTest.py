@@ -155,6 +155,70 @@ class TestMatrixFeatures(unittest.TestCase):
         self.assertEqual(a.minor(1, 0), 25)
         self.assertEqual(a.cofactor(1, 0), -25)
 
+    def test_determinant_3x3(self):
+        a = Matrix([[ 1, 2,  6],
+                    [-5, 8, -4],
+                    [ 2, 6,  4]])
+        self.assertEqual(a.cofactor(0, 0), 56)
+        self.assertEqual(a.cofactor(0, 1), 12)
+        self.assertEqual(a.cofactor(0, 2), -46)
+        self.assertEqual(a.determinant(), -196)
+
+    def test_determinant_4x4(self):
+        a = Matrix([[-2, -8,  3,  5],
+                    [-3,  1,  7,  3],
+                    [ 1,  2, -9,  6],
+                    [-6,  7,  7, -9]])
+        self.assertEqual(a.cofactor(0, 0), 690)
+        self.assertEqual(a.cofactor(0, 1), 447)
+        self.assertEqual(a.cofactor(0, 2), 210)
+        self.assertEqual(a.determinant(), -4071)
+
+    def test_yes_invertible(self):
+        a = Matrix([[6,  4, 4,  4],
+                    [5,  5, 7,  6],
+                    [4, -9, 3, -7],
+                    [9,  1, 7, -6]])
+        self.assertEqual(a.determinant(), -2120)
+        self.assertTrue(a.is_invertible())
+
+    def test_no_invertable(self):
+        a = Matrix([[-4,  2, -2, -3],
+                    [ 9,  6,  2,  6],
+                    [ 0, -5,  1, -5],
+                    [ 0,  0,  0,  0]])
+        self.assertEqual(a.determinant(), 0)
+        self.assertFalse(a.is_invertible())
+
+    def test_inverse(self):
+        a = Matrix([[-5,  2,  6, -8],
+                    [ 1, -5,  1,  8],
+                    [ 7,  7, -6, -7],
+                    [ 1, -3,  7,  4]])
+        b = a.inverse()
+        self.assertEqual(a.determinant(), 532)
+        self.assertEqual(a.cofactor(2, 3), -160)
+        self.assertEqual(b.data[3][2], -160/532)
+        self.assertEqual(a.cofactor(3, 2), 105)
+        self.assertEqual(b.data[2][3], 105/532)
+        self.assertTrue(b.equals(Matrix([[ 0.21805,  0.45113,  0.24060, -0.04511],
+                                        [-0.80827, -1.45677, -0.44361,  0.52068],
+                                        [-0.07895, -0.22368, -0.05263,  0.19737],
+                                        [-0.52256, -0.81391, -0.30075,  0.30639]])))
+
+    def test_product_times_inverse(self):
+        a = Matrix([[-4,  2, -2, -3],
+                    [ 9,  6,  8,  6],
+                    [ 0, -5,  9, -5],
+                    [ 0,  0,  4,  0]])
+        b = Matrix([[-5,  2,  6, -8],
+                    [ 1, -5, 10,  8],
+                    [-7,  7, -6, -7],
+                    [ 1, -3,  3,  4]])
+        c = a * b
+        self.assertTrue((c * b.inverse()).equals(a))
+
+
 
 if __name__ == "__main__":
     unittest.main()

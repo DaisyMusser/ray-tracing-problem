@@ -43,9 +43,18 @@ class Matrix:
                 t[col][row] = self.data[row][col]
         return Matrix(t)
 
+    # A determinant is a weird number you can get from matrices. 
+    # Idk how it works, google it...
     def determinant(self):
-        d = self.data
-        return d[0][0] * d[1][1] - d[0][1] * d[1][0]
+        m = self.data
+        if len(m) == 2:
+            det = m[0][0] * m[1][1] - m[0][1] * m[1][0]
+        else:
+            det = 0
+            # Using row 0, but could be any row or col
+            for col, num in enumerate(m[0]):
+                det += num * self.cofactor(0, col)
+        return det
 
     def submatrix(self, row, col):
         # not a deep copy!!
@@ -68,6 +77,25 @@ class Matrix:
         else:
             return -minor
 
+    def is_invertible(self):
+        if self.determinant() == 0:
+            return False
+        else:
+            return True
+
+    def inverse(self):
+        if not self.is_invertible():
+            # throw error here??
+            return False
+        else:
+            m = copy.deepcopy(self.data)
+            for x, row in enumerate(m):
+                for y, num in enumerate(row):
+                    c = self.cofactor(x, y)
+                    m[y][x] = c / self.determinant()
+            return Matrix(m)
+
+    
 
 
 
