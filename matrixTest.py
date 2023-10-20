@@ -218,6 +218,71 @@ class TestMatrixFeatures(unittest.TestCase):
         c = a * b
         self.assertTrue((c * b.inverse()).equals(a))
 
+    def test_point_times_translation(self):
+        trans = translation(5, -3, 2)
+        p = point(-3, 4, 5)
+        self.assertTrue((trans * p).equals(point(2, 1, 7)))
+
+    def test_point_times_inversion(self):
+        trans = translation(5, -3, 2)
+        inv = trans.inverse()
+        p = point(-3, 4, 5)
+        self.assertTrue((inv * p).equals(point(-8, 7, 3)))
+
+    def test_translating_vectors(self):
+        trans = translation(5, -3, 2)
+        v = vector(-3, 4, 5)
+        self.assertTrue((trans * v).equals(v))
+        
+    def test_scaling_a_point(self):
+        trans = scaling(2, 3, 4)
+        p = point(-4, 6, 8)
+        self.assertTrue((trans * p).equals(point(-8, 18, 32)))
+
+    def test_scaling_a_vector(self):
+        trans = scaling(2, 3, 4)
+        v = vector(-4, 6, 8)
+        self.assertTrue((trans * v).equals(vector(-8, 18, 32)))
+
+    def test_inverse_scaling(self):
+        trans = scaling(2, 3, 4)
+        inv = trans.inverse()
+        v = vector(-4, 6, 8)
+        self.assertTrue((inv * v).equals(vector(-2, 2, 2)))
+
+    def test_negative_scaling(self):
+        trans = scaling(-1, 1, 1)
+        p = point(2, 3, 4)
+        self.assertTrue((trans * p).equals(point(-2, 3, 4)))
+
+    def test_rotate_around_x(self):
+        p = point(0, 1, 0)
+        half_quarter = rotation_x(math.pi / 4)
+        full_quarter = rotation_x(math.pi / 2)
+        self.assertTrue((half_quarter * p).equals(point(0, math.sqrt(2)/2, math.sqrt(2)/2)))
+        self.assertTrue((full_quarter * p).equals(point(0, 0, 1)))
+
+    def test_inverse_rot_x(self):
+        p = point(0, 1, 0)
+        half_quarter = rotation_x(math.pi / 4)
+        inv = half_quarter.inverse()
+        self.assertTrue((inv * p).equals(point(0, math.sqrt(2)/2, -(math.sqrt(2)/2))))
+
+    def test_rotate_around_y(self):
+        p = point(0, 0, 1)
+        half_quarter = rotation_y(math.pi / 4)
+        full_quarter = rotation_y(math.pi / 2)
+        self.assertTrue((half_quarter * p).equals(point(math.sqrt(2)/2, 0, math.sqrt(2)/2)))
+        self.assertTrue((full_quarter * p).equals(point(1, 0, 0)))
+
+    def test_rotate_around_z(self):
+        p = point(0, 1, 0)
+        half_quarter = rotation_z(math.pi / 4)
+        full_quarter = rotation_z(math.pi / 2)
+        self.assertTrue((half_quarter * p).equals(point(-(math.sqrt(2)/2), 
+                                                           math.sqrt(2)/2,
+                                                                        0)))
+        self.assertTrue((full_quarter * p).equals(point(-1, 0, 0)))
 
 
 if __name__ == "__main__":

@@ -95,7 +95,44 @@ class Matrix:
                     m[y][x] = c / self.determinant()
             return Matrix(m)
 
-    
+
+def translation(x, y, z):
+    d = [[1, 0, 0, x],
+         [0, 1, 0, y],
+         [0, 0, 1, z],
+         [0, 0, 0, 1]]
+    return Matrix(d)
+
+def scaling(x, y, z):
+    d = [[x, 0, 0, 0],
+         [0, y, 0, 0],
+         [0, 0, z, 0],
+         [0, 0, 0, 1]]
+    return Matrix(d)
+
+# Returns a matrix that will roate a point {angle} radians around x axis
+def rotation_x(angle):
+    d = [[1,               0,                0, 0],
+         [0, math.cos(angle), -math.sin(angle), 0],
+         [0, math.sin(angle),  math.cos(angle), 0],
+         [0,               0,                0, 1]]
+    return Matrix(d)
+
+# Returns a matrix that will roate a point {angle} radians around y axis
+def rotation_y(angle):
+    d = [[ math.cos(angle), 0, math.sin(angle), 0],
+         [               0, 1,               0, 0],
+         [-math.sin(angle), 0, math.cos(angle), 0],
+         [               0, 0,               0, 1]]
+    return Matrix(d)
+
+# Returns a matrix that will roate a point {angle} radians around z axis
+def rotation_z(angle):
+    d = [[math.cos(angle), -math.sin(angle), 0, 0],
+         [math.sin(angle),  math.cos(angle), 0, 0],
+         [              0,                0, 1, 0],
+         [              0,                0, 0, 1]]
+    return Matrix(d)
 
 
 
