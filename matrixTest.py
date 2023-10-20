@@ -284,6 +284,36 @@ class TestMatrixFeatures(unittest.TestCase):
                                                                         0)))
         self.assertTrue((full_quarter * p).equals(point(-1, 0, 0)))
 
+    def test_shearing_x_by_y(self):
+        transform = shearing(1, 0, 0, 0, 0, 0)
+        p = point(2, 3, 4)
+        self.assertTrue((transform * p).equals(point(5, 3, 4)))
+
+    def test_shearing_x_by_z(self):
+        transform = shearing(0, 1, 0, 0, 0, 0)
+        p = point(2, 3, 4)
+        self.assertTrue((transform * p).equals(point(6, 3, 4)))
+
+    def test_shearing_y_by_x(self):
+        transform = shearing(0, 0, 1, 0, 0, 0)
+        p = point(2, 3, 4)
+        self.assertTrue((transform * p).equals(point(2, 5, 4)))
+
+    def test_shearing_y_by_z(self):
+        transform = shearing(0, 0, 0, 1, 0, 0)
+        p = point(2, 3, 4)
+        self.assertTrue((transform * p).equals(point(2, 7, 4)))
+
+    def test_shearing_z_by_x(self):
+        transform = shearing(0, 0, 0, 0, 1, 0)
+        p = point(2, 3, 4)
+        self.assertTrue((transform * p).equals(point(2, 3, 6)))
+
+    def test_shearing_z_by_y(self):
+        transform = shearing(0, 0, 0, 0, 0, 1)
+        p = point(2, 3, 4)
+        self.assertTrue((transform * p).equals(point(2, 3, 7)))
+
 
 if __name__ == "__main__":
     unittest.main()

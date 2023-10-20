@@ -134,5 +134,13 @@ def rotation_z(angle):
          [              0,                0, 0, 1]]
     return Matrix(d)
 
+# Returns a matrix that will shear a point or vector
+def shearing(xy, xz, yx, yz, zx, zy):
+    d = [[ 1, xy, xz, 0],
+         [yx,  1, yz, 0],
+         [zx, zy,  1, 0],
+         [ 0,  0,  0, 1]]  
+    return Matrix(d)
+
 
 
