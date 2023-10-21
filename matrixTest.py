@@ -314,6 +314,26 @@ class TestMatrixFeatures(unittest.TestCase):
         p = point(2, 3, 4)
         self.assertTrue((transform * p).equals(point(2, 3, 7)))
 
+    def test_non_chained_transformations(self):
+        p = point(1, 0, 1)
+        A = rotation_x(math.pi / 2)
+        B = scaling(5, 5, 5)
+        C = translation(10, 5, 7)
+        p2 = A * p
+        self.assertTrue(p2.equals(point(1, -1, 0)))
+        p3 = B * p2
+        self.assertTrue(p3.equals(point(5, -5, 0)))
+        p4 = C * p3
+        self.assertTrue(p4.equals(point(15, 0, 7)))
+
+    def test_chained_transformations(self):
+        p = point(1, 0, 1)
+        A = rotation_x(math.pi / 2)
+        B = scaling(5, 5, 5)
+        C = translation(10, 5, 7)
+        T = C * B * A
+        self.assertTrue((T * p).equals(point(15, 0, 7)))
+
 
 if __name__ == "__main__":
     unittest.main()
